@@ -125,6 +125,35 @@ The Cyan escape character is a tilde `~`, and will not be read if the character 
 "{a b ~}" c}"
 ```
 
+###### Comments ######
+Comments in a Cyan string are ignored. Here are the comment formats:
+```
+!! Single-line comment; reads to end of line
+
+!{
+Block comment; reads to closing brace + exclamation mark.
+}!
+
+!{
+Cyan block comments read to balanced comment symbols. This means that any internal block comments will be ignored until the ending one:
+
+!{
+I'm also ignored...
+}!
+
+This also means unclosed internal block comments will result in failure to parse the data.
+}!
+
+!! Declaration comment (the next key/value pair is completely ignored):
+
+!! key -> value
+!! key2 -> [
+	abc -> 123
+]
+
+!! Both of the above keys/values will not be included in the resulting table
+```
+
 #### Why the Repository? ####
 
 If Cyan is only a table serialization library, and built up of one file, why use an entire GitHub repository for it? I'm planning on making another version of Cyan that is a mini-language, with variables and math evaluation. Note that this is likely not something that will happen soon, though.
